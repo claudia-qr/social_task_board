@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header">
+            <h1>{{one_user.first_name}} {{one_user.last_name}}'s Profile</h1>
+            <a href="/tasks">Return Home</a>
+        </div>
+       
+        <h2>Tasks Created</h2>
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Date Created</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody>
+            
+            {% for task in one_user.created_tasks.all %}
+                <tr>
+                    <td>{{ task.title }}</td>
+                    <td>{{ task.created_at }}</td>
+                    <td>{{ task.points }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <h2>Tasks Completed</h2>
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Date Completed</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody>
+            
+            {% for task in one_user.completed_tasks.all %}
+                <tr>
+                    <td>{{ task.title }}</td>
+                    <td>{{ task.updated_at }}</td>
+                    <td>{{ task.points }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

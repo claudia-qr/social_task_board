@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Task</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header">
+            <h2>Hello {{ request.session.name }}, Add a Task! </h2>
+            <a href="/tasks">Go Back</a> | <a href="/logout">Logout</a>
+        </div>
+        
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <div class="task_form">
+            <form action="/create_task" method="POST">
+                {% csrf_token %}
+                <div>
+                    <label for="title">Task:</label>
+                    <input type="text" name="title" class="form-control">
+                </div>
+                <div>
+                    <label for="points">Points:</label>
+                    <input type="integer" name="points" class="form-control">
+                </div>
+                <div>
+                    <label for="description">Description</label>
+                    <textarea name="description" cols="30" rows="10" class="form-control"></textarea>
+                </div>
+                <a href="/tasks" value="Cancel"  class="btn btn-primary">Cancel</a> <button class="btn btn-primary">Submit</button> 
+            </form>
+        </div>
+    </div>
+</body>
+</html>

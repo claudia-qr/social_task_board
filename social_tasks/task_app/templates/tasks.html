@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Tasks</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Hello {{ request.session.name }}, Welcome to Social Tasks!</h1>
+        
+        <div class="header">
+        
+            <a href="/logout">Logout</a> |
+            <a href="/account/{{ request.session.user_id }}">Account</a> |
+            <a href="/tasks/new">Create a task!</a>
+         
+        </div>
+        <h2>Outstanding Tasks</h2>
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th>Date Created</th>
+                    <th>Created by</th>
+                    <th>Task</th>
+                    <th>Description</th>
+                    <th>Points</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            
+            {% for task in all_tasks %}
+                
+                <tr>
+                    {% if task.completed_by.count is 0 %}
+                    <td>{{ task.created_at }}</td>
+                    <td>{{ task.creator.first_name }}</td>
+                    <td>{{ task.title }}</td>
+                    <td>{{ task.description }}</td>
+                    <td>{{ task.points }}</td>
+                    <td>
+                        <a href="/tasks/delete/{{ task.id }}"> Delete |</a><a href="/tasks/edit/{{ task.id }}"> Edit |</a>
+                        <a href="/tasks/{{ task.id }}"> Complete</a>
+                    </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <table class="table table-dark">
+            <h2>Completed Tasks:</h2>
+            <thead class="table table-dark">
+                <tr>
+                    
+                    <th>Date Completed</th>
+                    <th>Task</th>
+                    <th>Description</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for task in all_tasks %}
+                <tr>
+                    {% if task.completed_by.count > 0 %}
+                    
+                    <td>{{ task.updated_at }}</td>
+                    <td>{{ task.title }}</td>
+                    <td>{{ task.description }}</td>
+                    <td>{{ task.points }}</td>
+                    {% endif %}
+                </tr>
+
+            {% endfor %}
+            </tbody>
+        </table>
+        <div id='messages'>
+            {% for task in all_tasks %}
+            <div class="message">
+                <h4><a href="/profile/{{task.creator.id}}">{{task.creator.first_name}} {{task.creator.last_name}}</a> added a task!</h4>         
+                <h4 style="color:rgb(191, 255, 0)";>{{task.title}}</h4>
+                <h6>Created on: {{task.created_at}}</h5>
+                
+                {% if request.session.user_id != task.creator.id %}
+                <p><a href="/like/{{task.id}}">Like</a> Likes: {{task.likes.count}}</p>
+                {% endif %}
+
+                <div class="comment">
+                    <h5 style="color:rgb(0, 255, 115)";>Leave a Comment:</h5>
+                    <form action="/add_comment/{{task.id}}" method="POST">
+                    {% csrf_token %}
+                    <input type="text" name="content">
+                    <input type="submit" value="Add Comment">
+                    </form>
+
+                    <h5>Comments:</h5>
+                    {% for one_comm in task.comments.all %}
+                    <p style="color:rgb(0, 255, 217)";>{{one_comm.content}}</p>
+                    <p style="color:rgb(0, 255, 217)";>Posted on: {{one_comm.created_at}}</p>
+                    <p style="color:rgb(0, 255, 217)";>Posted by: {{ one_comm.creator.first_name }}</p>
+                    {% if request.session.user_id == one_comm.creator.id %}
+                    <p><a href="/comm_edit/{{one_comm.id}}">Edit </a><a href="/comm_delete/{{one_comm.id}}"> | Delete</a></p>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

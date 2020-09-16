@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Comment</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div class="wrapper">
+        <h1>{{comm.creator.first_name}}, edit your comment!</h1>
+        <form action="/comm_edit/{{comm.id}}" method="POST">
+            {% csrf_token %}
+            <input type="text" name="content" value="{{comm.content}}" cols="30" rows="10" class="form-control">
+            <input type="submit" value="Edit">
+        </form>
+    </div>    
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Tasks</title>
+</head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Wishing App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body background="tree_pattern.jpg">
+    <div class="wrapper">
+        
+        {% if messages %}
+        <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+        
+        <div class="header">
+            <h1>Social Tasks</h1>
+            <h2>Welcome! Login or Register to start adding your tasks!</h2>
+        </div>
+        <div class="form">
+            <h2>REGISTER:</h2>
+            {% csrf_token %}
+            <form action="/register" method="POST">
+                {% csrf_token %}
+                <p>First Name</p>
+                <input type="text" name="first_name">
+                <p>Last Name</p>
+                <input type="text" name="last_name">
+                <p for="email">Email</p>
+                <input type="text" name="email">
+                <p for="password">Password</p>
+                <input type="text" name="password">
+                <p for="confirm_password">Confirm Password</p>
+                <input type="text" name="confirm_password">
+                <p><input type="submit" value="Register" class="btn btn-primary"></p>
+            </form>
+        </div>
+        <div class="form">
+            <h2>LOGIN:</h2>
+            <form action="/login" method="POST">
+                {% csrf_token %}
+                <p>Email</p>
+                <input type="text" name="email">
+                <p>Password</p>
+                <input type="text" name="password">
+                <p><input type="submit" value="Login" class="btn btn-primary"></p>
+            </form>
+        </div>
+        
+    </div>
+</body>
+</html>

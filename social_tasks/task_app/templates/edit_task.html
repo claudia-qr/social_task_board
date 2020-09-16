@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Task</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Hello {{ request.session.name }}! Let's edit the task!</h1>
+        <a href="/logout">Logout</a>
+        
+        {% if messages %}
+        <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+
+        <form action="/tasks/update/{{edit_task.id}}" method="POST">
+            {% csrf_token %}
+            <p>Task:</p>
+            <input type="text" name="title" value="{{edit_task.title}}">
+            <p>Points:</p>
+            <input type="integer" name="points" value="{{edit_task.points}}">
+            <p>Completed by:</p>
+            <input type="integer" name="completed_by" value="{{edit_task.completed_by.name}}">
+            <p>Description</p>
+            <input type="text" name="description" value="{{edit_task.description}}" cols="30" rows="10" class="form-control">
+            <input type="submit" value="Edit" class="btn btn-primary">
+            <a href="/tasks" value="Cancel"  class="btn btn-primary">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>

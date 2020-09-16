@@ -1,0 +1,89 @@
+*{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.wrapper{
+    font-family: sans-serif;
+    margin: 10px auto;
+    width: 900px;
+    padding: 25px;
+    background-color: darkgray;
+}
+.account_info{
+    font-family: sans-serif;
+    margin: 10px auto;
+    width: 700px;
+    padding: 25px;
+    background-color: darkgray;
+    display:inline-block;
+    vertical-align: top;
+}
+.header{
+    text-decoration-color: rgb(22, 22, 21);
+    font-style: oblique;
+    font-weight: 400;
+    font-size: large;
+    font: outline;
+    font-stretch: expanded;
+    padding: 15px;
+    background-color: darkgray;
+}
+
+.footer{
+    background-color: rgb(255, 253, 253);
+    text-decoration-color: rgb(22, 22, 21);
+}
+
+body{
+    background-image: url("tree.png");
+    background-color: #45969a;
+}
+
+.form{
+    display:inline-block;
+    vertical-align: top;
+    width: 300px;
+    padding: 20px;
+    margin: 50px;
+    border: solid black;
+    text-align: center;
+    background-color: #45969a;
+}
+
+input{
+    margin: 10px;
+}
+
+.signin_form{
+    display:inline-block;
+    vertical-align: top;
+    width: 300px;
+    padding: 20px;
+    margin: 50px;
+    border: solid black;
+    text-align: center;
+    background-color: #45969a;   
+}
+
+.labels{
+    width: 20px;
+}
+#mess_form{
+    margin-left: 500px;
+    background-color: #6e8185;
+    text-align: center;
+    padding: 15px;
+    margin: 0px;
+}
+#messages{
+    background-color: rgb(24, 26, 25);
+    padding: 15px;
+    color: whitesmoke;
+}
+
+.message{
+    background-color:#343a40;
+    text-align: center;
+    margin: 15px;
+    padding: 15px;
+}
